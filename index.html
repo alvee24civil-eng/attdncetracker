@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Tracker">
 <title>Tracker</title>
+<link rel="icon" id="favicon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236c63ff'/%3E%3Cpath d='M18 33l10 10 19-22' fill='none' stroke='%23fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="manifest" id="manifest-placeholder">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -395,7 +396,11 @@ if(IS_ADMIN)document.getElementById('edit-btn').classList.remove('hidden');
 /* ---------- THEME + HEADER ---------- */
 const SWATCHES=[['Violet','#6c63ff'],['Sky','#38bdf8'],['Teal','#14b8a6'],['Pink','#ec4899'],['Orange','#fb923c'],['Lime','#a3e635']];
 function curAccent(){let p=null;try{p=localStorage.getItem('attendx_accent');}catch(e){}return(!IS_ADMIN&&p)||st.meta.accent;}
-function applyTheme(){document.documentElement.style.setProperty('--accent',curAccent());}
+function applyTheme(){
+  const c=curAccent();document.documentElement.style.setProperty('--accent',c);
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='${c}'/><path d='M18 33l10 10 19-22' fill='none' stroke='#fff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/></svg>`;
+  document.getElementById('favicon').href='data:image/svg+xml,'+encodeURIComponent(svg);
+}
 function applyHeader(){
   const m=st.meta;
   document.getElementById('h-badge').textContent=m.badge;document.getElementById('h-badge').style.display=m.badge?'':'none';
